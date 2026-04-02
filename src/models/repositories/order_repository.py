@@ -1,6 +1,7 @@
 from src.models.settings import db_connection_handler
+from src.models.interfaces.order_repository import OrderRepositoryInterface
 
-class OrderRepository:
+class OrderRepository(OrderRepositoryInterface):
     def __init__(self) -> None:
         self.__conn = db_connection_handler.get_connection()
         self.__cursor = self.__conn.cursor()

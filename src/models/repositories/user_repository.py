@@ -1,6 +1,7 @@
 from src.models.settings import db_connection_handler
+from src.models.interfaces.user_repository import UserRepositoryInterface
 
-class UserRepository:
+class UserRepository(UserRepositoryInterface):
     def __init__(self) -> None:
         self.__conn = db_connection_handler.get_connection()
         self.__cursor = self.__conn.cursor()

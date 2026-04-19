@@ -12,7 +12,7 @@ class OrderController:
         return {"message": "Pedido criado com sucesso", "status": 201}
 
     def list_orders(self, user_id: int) -> dict:
-        orders = self.__order_repository.find_by_user_id(user_id)
+        orders = self.__order_repository.find_orders_by_user_id(user_id)
         orders_list = [
             {"id": order[0], "description": order[1], "created_at": order[2]}
             for order in orders

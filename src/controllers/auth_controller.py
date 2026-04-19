@@ -25,7 +25,7 @@ class AuthController:
     
         user_id, user_name, hashed_password = user
 
-        if not self.__password_handler.verify_password(password, hashed_password):
+        if not self.__password_handler.check_password(password, hashed_password):
             return {"error": "Usuário ou senha inválido", "status": 401}
 
         token = self.__jwt_handler.create_token(user_id, user_name)

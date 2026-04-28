@@ -52,7 +52,7 @@ class TestDecodeToken:
                 "user_id": 1, 
                 "username": "hacker"
             }, 
-            "chave_errada",                   
+            "chave_errada_com_no_minimo_32_caracteres_aqui",                   
             algorithm=jwt_infos["ALGORITHM"]
           )                                     
    

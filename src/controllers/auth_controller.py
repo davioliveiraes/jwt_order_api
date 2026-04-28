@@ -3,10 +3,10 @@ from src.drivers.password_handler import PasswordHandler
 from src.drivers.jwt_handler import JwtHandler
 
 class AuthController:
-    def __init__(self) -> None:
-        self.__user_repository = UserRepository()
-        self.__password_handler = PasswordHandler()
-        self.__jwt_handler = JwtHandler()
+    def __init__(self, user_repository, password_handler, jwt_handler) -> None:
+        self.__user_repository = user_repository
+        self.__password_handler = password_handler
+        self.__jwt_handler = jwt_handler
 
     def register(self, username: str, password: str) -> dict:
         existing_user = self.__user_repository.find_by_username(username)

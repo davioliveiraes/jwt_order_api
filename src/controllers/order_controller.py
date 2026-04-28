@@ -1,8 +1,8 @@
 from src.models.repositories.order_repository import OrderRepository
 
 class OrderController:
-    def __init__(self) -> None:
-        self.__order_repository = OrderRepository()
+    def __init__(self, order_repository) -> None:
+        self.__order_repository = order_repository
 
     def create_order(self, user_id: int, description: str) -> dict:
         if not description:

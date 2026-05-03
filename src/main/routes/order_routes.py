@@ -10,14 +10,14 @@ order_routes = Blueprint("order_routes", __name__)
 def create_order(user):
     data = request.get_json()
     controller = create_order_composer()
-    result = controller.create_order(user["user_id"], data.get("description"))
+    body, status = controller.create_order(user["user_id"], data.get("description"))
     
-    return jsonify(result), result.pop("status")
+    return jsonify(body), status
 
 @order_routes.route("/orders", methods=["GET"])
 @auth_required
 def list_orders(user):
     controller = list_orders_composer()
-    result = controller.list_orders(user["user_id"])
+    body, status = controller.list_orders(user["user_id"])
 
-    return jsonify(result), result.pop("status")
+    return jsonify(body), status

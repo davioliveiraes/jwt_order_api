@@ -8,14 +8,14 @@ auth_routes = Blueprint("auth_routes", __name__)
 def register():
     data = request.get_json()
     controller = register_user_composer()
-    result = controller.register(data.get("username"), data.get("password"))
+    body, status = controller.register(data.get("username"), data.get("password"))
 
-    return jsonify(result), result.pop("status")
+    return jsonify(body), status
 
 @auth_routes.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
     controller = login_user_composer()
-    result = controller.login(data.get("username"), data.get("password"))
+    body, status = controller.login(data.get("username"), data.get("password"))
 
-    return jsonify(result), result.pop("status")
+    return jsonify(body), status

@@ -11,25 +11,27 @@ def order_controller():
 class TestCreateOrder:
     def test_create_order_success(self, order_controller):
         controller, mock_order_repo = order_controller
+        body, status = controller.create_order(1, "Pedido de notebook")
 
-        result = controller.create_order(1, "Pedido de notebook")
-
-        assert result["status"] == 201
+        assert status == 201
+        assert body["message"] == "Pedido criado com sucesso"
         mock_order_repo.create_order.assert_called_once_with(1, "Pedido de notebook")
 
     def test_create_order_empty_description(self, order_controller):
         controller, mock_order_repo = order_controller
-        result = controller.create_order(1, "")
+        body, status = controller.create_order(1, "")
 
-        assert result["status"] == 400
+        assert status == 400
+        assert body["error"] == "Descrição é obrigatória"
         mock_order_repo.create_order.assert_not_called()
 
     def test_create_order_none_description(self, order_controller):
         controller, mock_order_repo = order_controller
 
-        result = controller.create_order(1, None)
+        body, status = controller.create_order(1, None)
 
-        assert result["status"] == 400
+        assert status == 400
+        assert body["error"] == "Descrição é obrigatória"
         mock_order_repo.create_order.assert_not_called()
 class TestListOrders:
     def test_list_orders_with_results(self, order_controller):
@@ -39,19 +41,19 @@ class TestListOrders:
             (2, "Pedido de teclado", "2026-04-02 11:00:00"),
         ]
 
-        result = controller.list_orders(1)
+        body, status = controller.list_orders(1)
 
-        assert result["status"] == 200
-        assert len(result["orders"]) == 2
+        assert status == 200
+        assert len(body["orders"]) == 2
 
     def test_list_orders_empty(self, order_controller):
         controller, mock_order_repo = order_controller
         mock_order_repo.find_orders_by_user_id.return_value = []
 
-        result = controller.list_orders(999)
+        body, status = controller.list_orders(999)
 
-        assert result["status"] == 200
-        assert result["orders"] == []
+        assert status == 200
+        assert body["orders"] == []
 
     def test_list_orders_only_for_given_user(self, order_controller):
         controller, mock_order_repo = order_controller
